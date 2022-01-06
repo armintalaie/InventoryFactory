@@ -1,7 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import { InventoryHandler } from './inventory';
-import { InventoryItem } from './itemHandler';
+import { InventoryItem, Item } from './itemHandler';
 
 const app = express();
 app.use(cors({
@@ -12,8 +12,6 @@ const port = 8080; // default port to listen
 
 let inventory: InventoryHandler;
 inventory = new InventoryHandler();
-
-// define a route handler for the default home page
 
 
 // start the Express server
@@ -59,8 +57,27 @@ app.get('/getItem/:id', (req, res) => {
 
 }) 
 
+app.post('/createShipment', (req, res) => {
+    const items: Item[] = req.body as Item[];
+    const ret: boolean = inventory.hanldeShipmentRequest(items);
+    res.send(JSON.stringify(ret));
+});
+
+
+app.get('/shipments/get', (req, res) => {
+    const ret: string[] = inventory.getShipments();
+    res.send(JSON.stringify(ret));
+});
+
+app.get('/shipments/process', (req, res) => {
+    inventory.processShipments();
+    res.redirect('/shipments/get')
+
+})
 
 app.get('/*', (req, res) => {
-    const validURLs: string[] = ['/createItem','/deleteItem/:id','/items','/editItem/:id', '/getItem/:id']
+    const validURLs: string[] = ['/createItem', '/deleteItem/:id', '/items', '/editItem/:id', '/getItem/:id', '/createShipment', '/shipments/get', '/shipments/process'];
     res.send(validURLs);
-} );
+});
+
+
