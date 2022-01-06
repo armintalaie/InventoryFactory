@@ -1,6 +1,5 @@
 import { v4 as UUID } from 'uuid';
 
-
 export type Item =  {
     id?: string
     title: string;
@@ -8,36 +7,34 @@ export type Item =  {
     description?: string;
 };
 
-
-
 export abstract class ItemHandler {
-    private items: InventoryItem[] = [];
+    private items: { [id: string]: InventoryItem } = {};
 
     public createItem(item: Item): InventoryItem {
         const newItem: InventoryItem = new InventoryItem(item);
-        this.items.push(newItem);
+        this.items[newItem.id] = newItem;
         return newItem;
     }
 
     public deleteItem(id: string): boolean {
-        const itemIndex: number = this.items.findIndex(e => e.id === id);
-        if (itemIndex >= 0) {
-            this.items.splice(itemIndex,1);
-            return true;
-        } else {
+        if (!this.items.hasOwnProperty(id))
             return false;
-        }
+
+        delete this.items[id];
+        return true;
+       
     }
 
-    public getItem(id: string): InventoryItem  | undefined {
-        return this.items.find(e => e.id === id);
+    public getItem(id: string): InventoryItem  {
+        return this.items[id];
     }
 
     public editItem(item: Item): boolean{
-        const itemIndex: number = this.items.findIndex(e => e.id === item.id);
-        if (itemIndex >= 0) {
-            this.items[itemIndex].quantity = item.quantity;
-            this.items[itemIndex].title = item.title;
+        if (this.items.hasOwnProperty(item.id!)) {
+            let editableItem: InventoryItem = this.getItem(item.id!);
+            editableItem.quantity = item.quantity;
+            editableItem.title = item.title;
+            editableItem.description = item.description!;
             return true;
         } else {
             return false;
@@ -46,7 +43,7 @@ export abstract class ItemHandler {
     }
 
     public getItems(): InventoryItem[] {
-        return this.items;
+        return Object.values<InventoryItem>(this.items);
     }
 
 }
@@ -64,4 +61,3 @@ export class InventoryItem {
 
     
 }
-
