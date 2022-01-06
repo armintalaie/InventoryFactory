@@ -80,7 +80,7 @@ button:hover {
 }
 
 .bottomline {
-    border-bottom: 1.3px solid rgb(146, 146, 146);
+    border-bottom: 1.2px dashed rgba(146, 146, 146, 0.589);
 }
 
 .row {
@@ -157,4 +157,31 @@ textarea:hover {
 
 textarea {
     resize: vertical;
+}
+
+.shipmentItem {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.shipment {
+    margin: auto;
+    padding: 2rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    width: 500px;
+    max-width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.10) 0px 4px 5px 0px;
+    border-radius: 4px;
+}
+
+.space {
+    margin-top: 3rem;
+}
+
+p {
+    font-size: 0.7rem;
 }
