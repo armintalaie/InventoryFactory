@@ -2,9 +2,11 @@ import "./App.css";
 import AddItem from "./components/addItem";
 import Item from "./components/item";
 import { useEffect, useState } from "react";
+import NewShipment from "./components/newShipment";
+import Shipment from "./components/shimpents";
 
 function App() {
-  const [toAdd, setToAdd] = useState(false);
+  const [action, setAction] = useState("list");
   const [items, seItems] = useState([]);
 
   async function getItems() {
@@ -21,15 +23,24 @@ function App() {
   }, []);
 
   const addModule = () => {
-    if (toAdd) {
+    if (action === "addItem") {
       return (
         <AddItem
           setToAdd={(toStatus) => {
-            setToAdd(toStatus);
+            setAction("list");
           }}
         />
       );
-    } else return list();
+    } else if (action === "list") return list();
+    else {
+      return (
+        <NewShipment
+          setToAdd={(toStatus) => {
+            setAction("list");
+          }}
+        />
+      );
+    }
   };
 
   const list = () => {
@@ -42,12 +53,17 @@ function App() {
             <button
               className="action"
               onClick={() => {
-                setToAdd(true);
+                setAction("addItem");
               }}
             >
               Create Item
             </button>
-            <button disabled={true} className="action">
+            <button
+              className="action"
+              onClick={() => {
+                setAction("shipment");
+              }}
+            >
               Create Shipment
             </button>
           </div>
@@ -69,8 +85,6 @@ function App() {
   );
 }
 
-function ItemList() {}
-
 export default App;
 
 function Info() {
@@ -82,7 +96,13 @@ function Info() {
         <div className="bottomline">
           {" "}
           <h4>Features</h4>
-          <button disabled={true}>GitHub Repo</button>
+          <a
+            href="https://github.com/armintalaie/InventoryFactory"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <button>GitHub Repo</button>
+          </a>
           <ul>
             <li>
               CRUD operations: you can create/edit/delete items via the button
@@ -95,7 +115,9 @@ function Info() {
           </ul>
           <h4>Notes</h4>
           <ul>
-            <li>The Inventory will reset on page refresh</li>
+            <li>
+              You should refresh to visually see the changes under the hood
+            </li>
           </ul>
         </div>
       );
@@ -113,6 +135,7 @@ function Info() {
       </div>
 
       {textBox()}
+      <Shipment />
     </section>
   );
 }
