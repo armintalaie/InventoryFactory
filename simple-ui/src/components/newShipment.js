@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-import Item from "./item";
 
 function NewShipment(props) {
-  const [quantity, setQuantity] = useState(0);
-
   const [items, seItems] = useState([]);
 
   async function getItems() {

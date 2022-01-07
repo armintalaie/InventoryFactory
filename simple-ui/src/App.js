@@ -23,7 +23,7 @@ function App() {
   }, []);
 
   const addModule = () => {
-    if (action == "addItem") {
+    if (action === "addItem") {
       return (
         <AddItem
           setToAdd={(toStatus) => {
@@ -31,7 +31,7 @@ function App() {
           }}
         />
       );
-    } else if (action == "list") return list();
+    } else if (action === "list") return list();
     else {
       return (
         <NewShipment
@@ -85,8 +85,6 @@ function App() {
   );
 }
 
-function ItemList() {}
-
 export default App;
 
 function Info() {
@@ -98,7 +96,13 @@ function Info() {
         <div className="bottomline">
           {" "}
           <h4>Features</h4>
-          <button disabled={true}>GitHub Repo</button>
+          <a
+            href="https://github.com/armintalaie/InventoryFactory"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <button>GitHub Repo</button>
+          </a>
           <ul>
             <li>
               CRUD operations: you can create/edit/delete items via the button

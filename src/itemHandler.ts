@@ -86,6 +86,7 @@ export class InventoryItem {
     constructor(item: Item) {
         this.title = item.title;
         this.quantity = item.quantity;
+        this.description = item.description;
     }
 
     

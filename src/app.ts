@@ -20,6 +20,11 @@ app.listen( port, () => {
 });
 
 
+
+
+// HANDLING ITEMS
+
+
 app.post('/createItem', (req, res) => {
     const title: string = req.body.title as string;
     const quantity: number = req.body.quantity as number;
@@ -57,6 +62,10 @@ app.get('/getItem/:id', (req, res) => {
 
 }) 
 
+
+
+// HANDLING SHIPMENTS
+
 app.post('/createShipment', (req, res) => {
     const items: Item[] = req.body as Item[];
     const ret: boolean = inventory.hanldeShipmentRequest(items);
@@ -74,6 +83,9 @@ app.get('/shipments/process', (req, res) => {
     res.redirect('/shipments/get')
 
 })
+
+
+
 
 app.get('/*', (req, res) => {
     const validURLs: string[] = ['/createItem', '/deleteItem/:id', '/items', '/editItem/:id', '/getItem/:id', '/createShipment', '/shipments/get', '/shipments/process'];
