@@ -8,6 +8,7 @@ import Shipment from "./components/shimpents";
 function App() {
   const [action, setAction] = useState("list");
   const [items, seItems] = useState([]);
+  const [count, setCount] = useState(0);
 
   async function getItems() {
     const res = await fetch("http://localhost:8080/items", {
@@ -16,6 +17,8 @@ function App() {
     });
     const data = await res.json();
     seItems(data);
+    setCount(data.length);
+    console.log(count);
   }
 
   useEffect(() => {
@@ -61,7 +64,10 @@ function App() {
             <button
               className="action"
               onClick={() => {
-                setAction("shipment");
+                if (count > 0) setAction("shipment");
+                else {
+                  alert("No Items Available - Add items first");
+                }
               }}
             >
               Create Shipment
@@ -129,12 +135,11 @@ function Info() {
       <div class="header">
         <h3>Info About Webapp</h3>
 
-        <button onClick={() => setShow(!show)}>
-          {show ? "Dismiss" : "Show"}
-        </button>
+        <button onClick={() => setShow(!show)}>{show ? "Hide" : "Show"}</button>
       </div>
 
       {textBox()}
+      <hr></hr>
       <Shipment />
     </section>
   );

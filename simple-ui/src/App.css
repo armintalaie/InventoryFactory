@@ -7,18 +7,38 @@ body {
 }
 
 .item {
-    max-width: 550px;
-    min-width: 350px;
-    min-height: 150px;
-    padding: 1rem;
-    padding-top: 0.3rem;
-    margin: 1rem;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 10px 0px;
+    width: 750px;
+    max-width: 100%;
+    min-width: 200px;
+    padding: 0.6rem;
+    padding-top: 0.2rem;
+    margin: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.10) 0px 2px 5px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.item-header {
+    min-width: 5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: fit-content;
 }
 
 .description {
     font-size: 0.8rem;
     color: rgb(78, 80, 83);
+    height: 1rem;
+}
+
+.item-header h5 {
+    width: fit-content;
+    height: fit-content;
+    margin: 0%;
+    font-size: 1rem;
 }
 
 .items {
@@ -96,9 +116,18 @@ ul li {
     margin-bottom: 0.4rem;
 }
 
-button.action,
-.item button.edit {
+button.action {
     background-color: rgb(149, 218, 183);
+}
+
+.item button.edit {
+    background-color: none;
+    border: 1px solid rgb(149, 218, 183);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 0.7rem;
+    font-weight: normal;
+    background: none;
 }
 
 .additem {
@@ -117,8 +146,7 @@ button.action,
     ;
 }
 
-.additem div,
-.item div {
+.additem div {
     width: 100%;
     display: flex;
     flex-direction: row;

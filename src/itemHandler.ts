@@ -1,10 +1,10 @@
 import { v4 as UUID } from 'uuid';
 
 export type Item =  {
-    id?: string
     title: string;
     quantity: number;
     description?: string;
+    id?: string;
 };
 
 export abstract class ItemHandler {
@@ -43,7 +43,6 @@ export abstract class ItemHandler {
         } else {
             return false;
         }
-        return true;
     }
 
     public getItems(): InventoryItem[] {
@@ -73,6 +72,20 @@ export abstract class ItemHandler {
         return false;
 
     }
+
+    public addBack(item: Item) {
+        console.log(item);
+        if (this.items.hasOwnProperty(item.id!)) {
+            let editableItem: InventoryItem = this.getItem(item.id!);
+            console.log(item.quantity);
+            console.log(editableItem.quantity);
+            editableItem.quantity = editableItem.quantity + item.quantity;
+            console.log(editableItem.quantity);
+            } else {
+                this.createItem(item);
+        }
+    }
+
 
 
 }

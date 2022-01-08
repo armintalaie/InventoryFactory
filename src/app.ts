@@ -1,6 +1,6 @@
 import cors from 'cors';
 import express from 'express';
-import { InventoryHandler } from './inventory';
+import { InventoryHandler, ShipmentInfo } from './inventory';
 import { InventoryItem, Item } from './itemHandler';
 
 const app = express();
@@ -74,14 +74,24 @@ app.post('/createShipment', (req, res) => {
 
 
 app.get('/shipments/get', (req, res) => {
-    const ret: string[] = inventory.getShipments();
+    const ret: ShipmentInfo[] = inventory.getShipments();
     res.send(JSON.stringify(ret));
 });
 
-app.get('/shipments/process', (req, res) => {
+app.get('/shipments/processAllShipments', (req, res) => {
     inventory.processShipments();
-    res.redirect('/shipments/get')
 
+})
+
+app.get('/shipments/:id/discard', (req, res) => {
+    const id: string = req.params.id;
+    inventory.hanldeShipment(id, true);
+
+})
+
+app.get('/shipments/:id/process', (req, res) => {
+    const id: string = req.params.id;
+    inventory.hanldeShipment(id, false);
 })
 
 
