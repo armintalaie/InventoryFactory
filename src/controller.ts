@@ -1,7 +1,8 @@
 import cors from 'cors';
 import express from 'express';
-import { InventoryHandler, ShipmentInfo } from './inventory';
-import { InventoryItem, Item } from './itemHandler';
+import { InventoryHandler } from './model/inventory';
+import { ShipmentInfo } from './model/shipmentHandler';
+import { InventoryItem, Item } from './model/itemHandler';
 
 const app = express();
 app.use(cors({
@@ -68,8 +69,8 @@ app.get('/getItem/:id', (req, res) => {
 
 app.post('/createShipment', (req, res) => {
     const items: Item[] = req.body as Item[];
-    const ret: boolean = inventory.hanldeShipmentRequest(items);
-    res.send(JSON.stringify(ret));
+    inventory.hanldeShipmentRequest(items);
+    res.send();
 });
 
 

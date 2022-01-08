@@ -1,62 +1,13 @@
-import { InventoryItem, ItemHandler, Item } from "./itemHandler";
+import { ItemHandler, Item } from "./itemHandler";
 import { v4 as UUID } from 'uuid';
 
-export class InventoryHandler extends ItemHandler {
-    private name: string = "Inventory";
-    private shipmentHandler: ShipmentHandler;
-    private shipments: Shipment[] = [];
-    
-    
-    constructor(name?: string) {
-        super();
-        if (name)
-            this.name = name;
-        this.shipmentHandler = new ShipmentHandler();
-    }
-
-    hanldeShipmentRequest(items: Item[]): boolean {
-        if (this.inventorycheck(items)) {
-            items.forEach(item => {
-                this.removeItems(item);
-            })
-            this.shipmentHandler.createShipment(items);
-            return true;
-        } else {
-            return false;
-        }
-        
-    }
-
-    getShipments(): ShipmentInfo[]  {
-
-        return this.shipmentHandler.getShipments();
-    }
-
-    processShipments(): void {
-        this.shipmentHandler.processAllShipments();
-    } 
-    
-    hanldeShipment(id: string, discard: boolean) {
-    
-        if (discard) {
-            const items: Item[] = this.shipmentHandler.discardShipment(id);
-            items.forEach(item => {
-                this.addBack(item);
-            });
-        } else {
-            this.shipmentHandler.processShipment(id);
-        }
-    }
-}
-
-
-
-class ShipmentHandler {
+export class ShipmentHandler {
     private shipments: Shipment[] = [];
 
-    createShipment(items: Item[]) {
+    createShipment(items: Item[]): ShipmentInfo{
         const shipment: Shipment = new Shipment('Shipment' + this.shipments.length, items);
         this.shipments.push(shipment);
+        return shipment.getInfo();
     }
 
     getShipments(): ShipmentInfo[]{

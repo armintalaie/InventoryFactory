@@ -11,6 +11,8 @@ export abstract class ItemHandler {
     private items: { [id: string]: InventoryItem } = {};
 
     public createItem(item: Item): InventoryItem {
+        if (item.quantity <= 0)
+            throw new TypeError('Item quantity must be positive');
         const newItem: InventoryItem = new InventoryItem(item);
         this.items[newItem.id] = newItem;
         return newItem;
@@ -26,14 +28,15 @@ export abstract class ItemHandler {
     }
 
     public getItem(id: string): InventoryItem  {
+        if (!this.items.hasOwnProperty(id))
+            throw new Error('item doesn\'t exist');
         return this.items[id];
+       
     }
 
     public editItem(item: Item): boolean{
         const id: string = item.id!;
-        console.log(id);
         if (this.items.hasOwnProperty(id)) {
-            console.log(id);
             let editableItem: InventoryItem = this.getItem(item.id!);
             editableItem.quantity = item.quantity;
             editableItem.title = item.title;
@@ -74,15 +77,11 @@ export abstract class ItemHandler {
     }
 
     public addBack(item: Item) {
-        console.log(item);
         if (this.items.hasOwnProperty(item.id!)) {
             let editableItem: InventoryItem = this.getItem(item.id!);
-            console.log(item.quantity);
-            console.log(editableItem.quantity);
             editableItem.quantity = editableItem.quantity + item.quantity;
-            console.log(editableItem.quantity);
             } else {
-                this.createItem(item);
+            this.createItem(item);
         }
     }
 
@@ -97,10 +96,11 @@ export class InventoryItem {
     public id: string = UUID();
 
     constructor(item: Item) {
+        if (item.id)
+            this.id = item.id;
         this.title = item.title;
         this.quantity = item.quantity;
         this.description = item.description;
     }
-
     
 }
