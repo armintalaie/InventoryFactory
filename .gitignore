@@ -2,3 +2,5 @@ node_modules
 dist
 
 todo.md
+coverage
+.nyc_output

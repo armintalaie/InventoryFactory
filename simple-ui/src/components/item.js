@@ -40,7 +40,7 @@ function Item({ item }) {
               value={quantity}
               type="number"
               onChange={(e) => {
-                setQuantity(e.target.value);
+                setQuantity(parseInt(e.target.value));
               }}
             ></input>
           </div>
@@ -79,12 +79,19 @@ function Item({ item }) {
     } else {
       return (
         <div className="item">
-          <p>{quantity}</p>
-          <h4>{title}</h4>
-          <p className="description">{description}</p>
-          <button onClick={() => setEdit(true)} className="edit">
-            Edit Item
-          </button>
+          <div>
+            <div className="item-header">
+              <h5>{title}</h5>
+              <p>{quantity}</p>
+            </div>
+            <p className="description">{description + " "}</p>
+          </div>
+
+          <div>
+            <button onClick={() => setEdit(true)} className="edit">
+              Edit
+            </button>
+          </div>
         </div>
       );
     }

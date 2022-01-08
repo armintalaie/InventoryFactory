@@ -41,7 +41,7 @@ function NewShipment(props) {
               placeholder="how many"
               type="number"
               onChange={(o) => {
-                e.quantity = o.target.value;
+                e.quantity = parseInt(o.target.value);
               }}
             ></input>
           </div>

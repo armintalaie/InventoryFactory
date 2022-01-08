@@ -36,7 +36,7 @@ function AddItem(props) {
         <input
           type="number"
           onChange={(e) => {
-            setQuantity(e.target.value);
+            setQuantity(parseInt(e.target.value));
           }}
         ></input>
       </div>
@@ -53,7 +53,14 @@ function AddItem(props) {
         <button className="action" onClick={() => addItem()}>
           Create
         </button>
-        <button className="">Cancel</button>
+        <button
+          className=""
+          onClick={() => {
+            props.setToAdd(false);
+          }}
+        >
+          Cancel
+        </button>
       </div>
     </div>
   );
