@@ -11,7 +11,10 @@ export class InventoryHandler extends ItemHandler {
   }
 
   hanldeShipmentRequest(items: Item[]): ShipmentInfo {
-    if (this.inventorycheck(items)) {
+    for (const item of items) {
+      if (item.quantity <= 0) throw new Error("Failed inventory check");
+    }
+    if (items.length > 0 && this.inventorycheck(items)) {
       items.forEach((item) => {
         this.removeItems(item);
       });
