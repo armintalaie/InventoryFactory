@@ -15,9 +15,12 @@ _Challenge - Summer 2022_
 6. Run `nom start` to run the UI
    - the UI is hosted on [http://localhost:3000](http://localhost:3000)
 
-<u>you can interact with the server/application only using the frontend at http://localhost:3000</u> - ==Suggested==
+<u>you can interact with the server/application only using the frontend at http://localhost:3000</u> Suggested
+- *You should refresh the page to see updates*
 
-you can also only interact with the API endpoints at [http://localhost:8080](http://localhost:8080)
+
+<br>
+you can also only interact with the API endpoints at http://localhost:8080
 
 ---
 
